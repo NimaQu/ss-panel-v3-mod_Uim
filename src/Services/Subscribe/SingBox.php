@@ -39,6 +39,7 @@ final class SingBox extends Base
                         ($node_custom_config['offset_port_node'] ?? 443);
                     $method = $node_custom_config['method'] ?? '2022-blake3-aes-128-gcm';
                     $user_pk = Tools::genSs2022UserPk($user->passwd, $method);
+                    $uot = $node_custom_config['uot'] ?? false;
 
                     if (! $user_pk) {
                         $node = [];
@@ -54,6 +55,7 @@ final class SingBox extends Base
                         'server_port' => (int) $ss_2022_port,
                         'method' => $method,
                         'password' => $server_key === '' ? $user_pk : $server_key . ':' .$user_pk,
+                        'udp_over_tcp' => (bool) $uot,
                     ];
 
                     break;
